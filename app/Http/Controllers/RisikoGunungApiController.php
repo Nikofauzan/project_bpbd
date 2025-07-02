@@ -16,12 +16,15 @@ class RisikoGunungApiController extends Controller
     public function gunungApiData()
     {
         try {
-            // [PERBAIKAN] Gunakan nama file dan ekstensi yang benar
+            // [PERBAIKAN FINAL] Path dan nama file disesuaikan dengan standar terbaik
+            // Pastikan nama folder 'geojson' (huruf kecil)
+            // Pastikan nama file 'Indeks_Risiko_Letusan_Gunung_Api.json' (pake underscore, bukan spasi)
             $path = public_path('geojson/Indeks_Risiko_Letusan_Gunung_Api.json');
 
             if (!File::exists($path)) {
+                // Jika file tidak ada, catat di log dan kirim error yang jelas
                 Log::error('[GunungApi] GAGAL: File tidak ditemukan di path: ' . $path);
-                return response()->json(['error' => 'File data Gunung Api tidak ditemukan.'], 404);
+                return response()->json(['error' => 'File data Gunung Api tidak ditemukan. Pastikan path dan nama file sudah benar.'], 404);
             }
 
             // [UPGRADE TOTAL] Kita pake "Jurus Selang" (Streaming) biar ringan
